@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel de Estações</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    @keyframes colorShift {
+      0% { color: rgb(255, 0, 0); }
+      25% { color: rgb(0, 255, 0); }
+      50% { color: rgb(0, 0, 255); }
+      75% { color: rgb(255, 255, 0); }
+      100% { color: rgb(255, 0, 0); }
+    }
+
+    @keyframes pulseSize {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    #titulo {
+      font-size: 90px;
+      font-weight: bold;
+      animation: colorShift 3s infinite, pulseSize 2s infinite;
+    }
+
+    #numero {
+      font-size: 180px;
+      margin-top: 40px;
+      font-weight: bold;
+      color: rgb(233, 211, 17);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    #formulario {
+      margin-top: 30px;
+    }
+
+    input, button {
+      font-size: 20px;
+      padding: 10px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="titulo">ESTAÇÃO LIVRE</div>
+  <div id="numero">-</div>
+
+  <div id="formulario">
+    <input type="number" id="novaEstacao" placeholder="Digite o número da estação">
+    <button id="botaoAtualizar">Atualizar Número</button>
+  </div>
+
+  <audio id="som" src="sound.mp3"></audio>
+
+  <script>
+    document.getElementById("botaoAtualizar").addEventListener("click", function() {
+      const input = document.getElementById("novaEstacao");
+      const valor = input.value;
+      const som = document.getElementById("som");
+
+      if (valor !== "" && !isNaN(valor)) {
+        document.getElementById("numero").textContent = valor;
+        input.value = "";
+
+        try {
+          som.play();
+        } catch (error) {
+          console.error("Erro ao tocar som:", error);
+        }
+      } else {
+        alert("Por favor, insira um número válido.");
+      }
+    });
+  </script>
+
+</body>
+</html>
